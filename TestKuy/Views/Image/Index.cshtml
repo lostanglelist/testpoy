@@ -1,0 +1,111 @@
+﻿@model IEnumerable<TestKuy.Models.ImageModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+@*Search Bar*@
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Search..." value="@ViewData["SearchForDetails"]" name="search" style="width:500px;" />
+        <input type="submit" value="Search" class="btn btn-primary" />
+        <a asp-action="Index">Clear Search</a>
+    </p>
+</form>
+
+
+@*Filter*@
+<form method="get" asp-action="Index">
+        <button name="Category" type="submit" value="NVIDIA">NVIDIA</button>
+        <button name="Category" type="submit" value="AMD">AMD</button>
+        <button name="Category" type="submit" value="ASUS">ASUS</button>
+        <button name="Category" type="submit" value="ZOTAC">ZOTAC</button>
+        <button name="Category" type="submit" value="Gigabyte">GIGABYTE</button>
+        <button name="Category" type="submit" value="MSI">MSI</button>
+</form>
+
+@*Filter Checkbox*@
+<form method="get" asp-action="Index">
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="GPU" id="NvidiaCB" value="Nvidia">
+        <label class="form-check-label" for="NvidiaCB">Nvidia</label></div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="GPU" id="AmdCB" value="AMD">
+        <label class="form-check-label" for="AmdCB">AMD</label></div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="Brand" id="AsusCB" value="Asus">
+        <label class="form-check-label" for="AsusCB">Asus</label></div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="Brand" id="ZotacCB" value="Zotac">
+        <label class="form-check-label" for="ZotacCB">Zotac</label></div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="Brand" id="GigabyteCB" value="Gigabyte">
+        <label class="form-check-label" for="GigabyteCB">Gigabyte</label></div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="Brand" id="MSICB" value="MSI">
+        <label class="form-check-label" for="MSICB">MSI</label></div>
+<input type="submit" value="Submit" name="Submit">
+</form>
+
+@*Sorting*@
+<a asp-action="Index" asp-route-Sortby="@ViewData["PriceAscend"]">Price Ascending</a>
+<a asp-action="Index" asp-route-Sortby="@ViewData["PriceDescend"]">Price Descending</a>
+<a asp-action="Index" asp-route-Sortby="@ViewData["NameAscend"]">Name Ascending</a>
+<a asp-action="Index" asp-route-Sortby="@ViewData["NameDescend"]">Name Descending</a>
+<a asp-action="Index" asp-route-Sortby="@ViewData["Default"]">Default</a>
+
+
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDetail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ProductId"><img src="@("~/image/"+@item.ImageName)" asp-append-version="true" style="width:250px !important"></a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a> |
+                <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@item.ProductId">Cart</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

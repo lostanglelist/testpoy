@@ -1,0 +1,74 @@
+﻿@model TestKuy.Models.Order
+
+<h1>Thank you for your order!</h1>
+
+
+<h5 class="mt-5">Order Id: @Model.Id</h5>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model.OrderItems)
+			{
+				var itemTotal = item.Price;
+				<tr>
+					<td>
+						<a asp-controller="Image" asp-action="Details" asp-route-id="@item.VGAId"><img src="@("~/image/"+@item.VGAimage)" asp-append-version="true" style="width:250px !important"></a>
+					</td>
+					<td>
+						@item.VGAName
+					</td>
+					<td>
+						@itemTotal.ToString("c")
+					</td>
+					<td>
+						@item.Quantity
+					</td>
+					<td>
+						@item.UserName @item.Phone @item.Country @item.State @item.Zipcode
+					</td>
+				</tr>
+			}
+		</tbody>
+		<tfoot>
+			<td></td>
+			<td class="text-right">
+				<strong>Total:</strong>
+			</td>
+			<td>
+				<strong>@Model?.OrderTotal.ToString("c")</strong>
+			</td>
+			<td></td>
+		</tfoot>
+	</table>
+
+	<div>Name: <br /><span id="Name"></span></div>
+	<div>Country: <br /><span id="Country"></span></div>
+	<div>Phone: <br /><span id="Phone"></span></div>
+	<div>State: <br /><span id="State"></span></div>
+	<div>Zipcode: <br /><span id="Zipcode"></span></div>
+
+@section Scripts {
+	<script>
+const Name = localStorage.getItem('Name');
+const Country = localStorage.getItem('Country');
+const Phone = localStorage.getItem('Phone');
+const State = localStorage.getItem('State');
+const Zipcode = localStorage.getItem('Zipcode');
+
+document.getElementById('Name').textContent = Name;
+document.getElementById('Country').textContent = Country;
+document.getElementById('Phone').textContent = Phone;
+document.getElementById('State').textContent = State;
+document.getElementById('Zipcode').textContent = Zipcode;
+
+
+	</script>
+}

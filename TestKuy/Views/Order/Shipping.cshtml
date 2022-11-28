@@ -1,0 +1,97 @@
+﻿@model TestKuy.Models.Shipping
+
+<h1>Shipping</h1>
+
+<h4>KUY</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form id="form">
+            <div>
+                <label for="Name">Name</label>
+                <input id="Name" type="text" />
+            </div>
+            <div>
+                <label for="Country">Country</label>
+                <input id="Country" type="text" />
+            </div>
+            <div>
+                <label for="Phone">Phone</label>
+                <input id="Phone" type="text" />
+            </div>
+            <div>
+                <label for="State">State</label>
+                <input id="State" type="text" />
+            </div>
+            <div>
+                <label for="Zipcode">Zipcode</label>
+                <input id="Zipcode" type="text" />
+            </div>
+            <div>
+                <button type="submit">Checkout</button>
+            </div>
+
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ShipName" class="control-label"></label>
+                <input asp-for="ShipName" class="form-control" />
+                <span asp-validation-for="ShipName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShipPhone" class="control-label"></label>
+                <input asp-for="ShipPhone" class="form-control" />
+                <span asp-validation-for="ShipPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShipCountry" class="control-label"></label>
+                <input asp-for="ShipCountry" class="form-control" />
+                <span asp-validation-for="ShipCountry" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShipState" class="control-label"></label>
+                <input asp-for="ShipState" class="form-control" />
+                <span asp-validation-for="ShipState" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShipZipcode" class="control-label"></label>
+                <input asp-for="ShipZipcode" accept="image/*" />
+                <span asp-validation-for="ShipZipcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Shipping" class="btn btn-primary" />
+            </div>*@
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+const form = document.getElementById('form');
+const Name = document.getElementById('Name');
+const Country = document.getElementById('Country');
+const Phone = document.getElementById('Phone');
+const State = document.getElementById('State');
+const Zipcode = document.getElementById('Zipcode');
+
+form.addEventListener('submit', function(e) { 
+    e.preventDefault();
+
+    const NameValue = Name.value;
+    const CountryValue = Country.value;
+    const PhoneValue = Phone.value;
+    const StateValue = State.value;
+    const ZipcodeValue = Zipcode.value;
+
+    localStorage.setItem('Name', NameValue);
+    localStorage.setItem('Country', CountryValue);
+    localStorage.setItem('Phone', PhoneValue);
+    localStorage.setItem('State', StateValue);
+    localStorage.setItem('Zipcode', ZipcodeValue);
+
+    window.location.href = "Checkout";
+})
+    </script>
+}
